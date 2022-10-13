@@ -172,7 +172,7 @@ class MasterList extends CI_Controller {
 			}
 		}
 
-		$this->QueryTalk->update(
+		$result = $this->QueryTalk->update(
 			$table = 'formulir_pemohon', 
 			$where = ['id_formulir' => $id_permohonan],
 			$data = $data_update, 
@@ -180,10 +180,46 @@ class MasterList extends CI_Controller {
 			$excess = null, 
 			$file_upload = null);
 
+		if($result){
+			$this->session->set_flashdata('success', 'Disposisi/ Catatan berhasil dibuat');
+			
+		}else{
+			$this->session->set_flashdata('error', 'Gagal untuk membuat Disposisi/ Catatan, silakan ulangi lagi');
+			
+		}
+		// add catatan untuk pemoho
+		$catatan_pemohon = $this->input->post('catatan_pemohon');
+		if ($catatan_pemohon) {
+			$this->QueryTalk->update(
+				$table = 'formulir_pemohon', 
+				$where = ['id_formulir' => $id_permohonan],
+				$data = ['catatan_pemohon' => $catatan_pemohon], 
+				$except = null, 
+				$excess = null, 
+				$file_upload = null);
+		}
 		$url = base_url('master-list/detail-permohonan?ref=').encode_id($id_permohonan);
 		
-		$this->session->set_flashdata('success', 'Disposisi/ Catatan berhasil dibuat');
-
 		redirect($url);
+	}
+
+	public function update_status_produk()
+	{
+		$status = $this->input->post('status');
+		$keterangan = $this->input->post('keterangan');
+		$id_produk = decode_id($this->input->post('id_produk'));
+		$id_permohonan = decode_id($this->input->post('id_permohonan'));
+
+		$result = $this->QueryTalk->update('formulir_produk', ['id_produk' => $id_produk], ['status' => $status, 'keterangan' => $keterangan]);
+
+		if ($result) {
+			$this->session->set_flashdata('success', 'Update data produk berhasil');
+		}else{
+			$this->session->set_flashdata('error', 'Update data produk gagal');
+		}
+
+		$url = base_url('master-list/detail-permohonan?ref=').encode_id($id_permohonan);
+		redirect($url);
+
 	}
 }

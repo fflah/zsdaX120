@@ -54,7 +54,7 @@
                     <tr>
                         <td>Nomor</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?=$data_permohonan->id_formulir?>/ILMATE/PERTEK-MASTERLIST/<?= numberToRomawi(date("n"))?>/<?= date("Y")?></td>
                     </tr>
                     <tr>
                         <td>Tanggal</td>
@@ -84,11 +84,11 @@
             <?php foreach ($data_produk as $key => $value): ?> 
             <tr>
                 <td><?=$key+1?></td>
-                <td></td>
+                <td><?=$value->nama_mesin?></td>
                 <td><?=$value->spesifikasi?></td>
                 <td><?=$value->hs_code?></td>
-                <td><?=$value->jumlah_produk?></td>
-                <td></td>
+                <td><?=$value->jumlah_produk_sesudah?></td>
+                <td>Unit</td>
                 <td><?=$value->asal_negara?></td>
                 <td><?=$value->pelabuhan_muat?></td>
                 <td><?=$value->pelabuhan_bongkar?></td>
@@ -111,8 +111,19 @@
                 <br />
                 <br />
                 <br />
-                <strong>TAUFIEK BAWAZIER</strong>
-
+                <table >
+                    <tr>
+                        <td>
+                            <strong style="text-align: center;">TAUFIEK BAWAZIER</strong>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="<?=base_url('assets/images/barcode.png')?>" alt="" srcset="">
+                            <p style="text-align: center;">#11206466</p>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>

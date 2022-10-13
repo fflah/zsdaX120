@@ -57,7 +57,7 @@
                                         <td><?=$value->id_formulir?></td>
                                         <td><?=$value->date_created?></td>
                                         <td><?=$value->alasan_permohonan?></td>
-                                        <td><?=$value->status?></td>
+                                        <td><span style="color: black ;" class="label label-sm label-warning"><?=$value->status?></span></td>
                                         <td>
     
                                             <div class="hidden-sm hidden-xs action-buttons">

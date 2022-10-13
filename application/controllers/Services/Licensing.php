@@ -47,11 +47,17 @@ class Licensing extends CI_Controller {
 				'status' => 'diajukan',
 				'user_id' => $this->session->userdata('id_user')
 			];
-			$this->QueryTalk->insert('formulir_pemohon', $data, $except, $excess, $file_upload);
+			$result = $this->QueryTalk->insert('formulir_pemohon', $data, $except, $excess, $file_upload);
+			if($result){
+				$this->session->set_flashdata('success', 'Data permohonan berhasil dibuat');
+				
+			}else{
+				$this->session->set_flashdata('error', 'Permohonan gagal dibuat, silakan ulangi lagi');
+				
+			}
 			$insert_id = encode_id($this->db->insert_id());
 			
 			$url = base_url('services/licensing/list-produk') . "?ref=$insert_id";
-			$this->session->set_flashdata('success', 'Data permohonan berhasil dibuat');
 			redirect($url);
 
 		}
@@ -147,10 +153,16 @@ class Licensing extends CI_Controller {
 					$except = null;
 					$excess = null;
 					$where = ['id_produk' => $id_produk];
-					$this->QueryTalk->update('formulir_produk', $where, $data, $except, $excess, $file_upload);
+					$result = $this->QueryTalk->update('formulir_produk', $where, $data, $except, $excess, $file_upload);
+					if($result){
+						$this->session->set_flashdata('success', 'Data produk berhasil diupdate');
+						
+					}else{
+						$this->session->set_flashdata('error', 'Data produk gagal diupdate, silakan ulangi lagi');
+						
+					}
 					$insert_id = $this->input->get('ref');
 					$url = base_url('services/licensing/list-produk') . "?ref=$insert_id";
-					$this->session->set_flashdata('success', 'Data produk berhasil diupdate');
 					redirect($url);
 				}
 					
@@ -204,7 +216,8 @@ class Licensing extends CI_Controller {
 			
 			$data = array(
 				'title' => 'Sistem Informasi Industri Nasional',
-				'data_produk' => $this->QueryTalk->select('formulir_produk', ['formulir_pemohon_id' => $id_permohonan])->result()
+				'data_produk' => $this->QueryTalk->select('formulir_produk', ['formulir_pemohon_id' => $id_permohonan])->result(),
+				'data_permohonan' => $this->QueryTalk->select('formulir_pemohon', ['id_formulir' => $id_permohonan])->row()
 			);
 			$this->template->load('template_user/base', 'services/licensing/list_produk', $data);
 		}else{
@@ -234,9 +247,15 @@ class Licensing extends CI_Controller {
 	{		
 		$id_produk = decode_id($this->input->get('produk'));
 		$id_permohonan = $this->input->get('ref');
-		$this->QueryTalk->delete('formulir_produk', ['id_produk' => $id_produk]);
+		$result = $this->QueryTalk->delete('formulir_produk', ['id_produk' => $id_produk]);
+		if($result){
+			$this->session->set_flashdata('success', 'Data produk berhasil dihapus');
+			
+		}else{
+			$this->session->set_flashdata('error', 'Data produk gagal dihapus, silakan ulangi lagi');
+			
+		}
 		$url = base_url('services/licensing/list-produk') . "?ref=$id_permohonan";
-		$this->session->set_flashdata('success', 'Data produk berhasil dihapus');
 		redirect($url);
 
 		
@@ -249,16 +268,39 @@ class Licensing extends CI_Controller {
 		$id_permohonan = decode_id($this->input->get('ref'));
 		$data_permohonan = $this->QueryTalk->select('formulir_pemohon', ['id_formulir' => $id_permohonan])->row();
 		if($data_permohonan->acc_dirjen){
-			$data_produk = $this->QueryTalk->select('formulir_produk', ['formulir_pemohon_id' => $id_permohonan])->result();
+			$data_produk = $this->QueryTalk->select('formulir_produk', ['formulir_pemohon_id' => $id_permohonan, 'status' => 'Disetujui'])->result();
 			$data_user = $this->QueryTalk->select('users', ['id_user' => $data_permohonan->user_id])->row();
 			$data_lembaga = $this->QueryTalk->select('lembaga', ['id_lembaga' => $data_user->id_lembaga])->row();
+			$nilai_mesin = 0;
+			$jumlah_produk = 0;
+			$harga_produk = 0;
+			$umur_teknis_mesin = 0;
+			$jumlah_tenaga_kerja = 0;
+
+			foreach ($data_produk as $key => $value) {
+				$nilai_mesin += $value->nilai_mesin;
+				$jumlah_produk += $value->jumlah_produk_sesudah	;
+				$harga_produk += $value->nilai_produk_sesudah;
+				$umur_teknis_mesin += $value->umur_teknis_mesin;
+				$jumlah_tenaga_kerja += $value->penyerapan_tenaga_kerja;
+			}
+
+			$nilai_bea_masuk = $nilai_mesin * (5/100);
+			$kontribusi_ppn = $jumlah_produk * $harga_produk * $umur_teknis_mesin * (11/100);
+			
+
+
 			$data = [
 				'data_permohonan' => $data_permohonan,
 				'data_produk' => $data_produk,
 				'data_lembaga' => $data_lembaga,
-				'data_user' => $data_user
+				'data_user' => $data_user,
+				'nilai_mesin' => $nilai_mesin,
+				'jumlah_tenaga_kerja' => $jumlah_tenaga_kerja,
+				'nilai_bea_masuk' => $nilai_bea_masuk,
+				'kontribusi_ppn' => $kontribusi_ppn
+
 			];  
-			// print_r($data); die;
 			// return $this->load->view('services/licensing/lampiran_surat_rekomendasi', $data);      
 			$mpdf = new \Mpdf\Mpdf();
 			$data = $this->load->view('services/licensing/surat_rekomendasi', $data, TRUE);        

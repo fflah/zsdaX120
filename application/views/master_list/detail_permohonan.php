@@ -174,6 +174,8 @@
                                 <th>HS Code</th>
                                 <th>Nilai Mesin</th>
                                 <th>Jumlah Mesin</th>
+                                <th>Status</th>
+                                <th>Keterangan</th>
                             </tr>
                         </thead>
 
@@ -188,11 +190,55 @@
 
                                     <td><?= $value->nama_mesin ?></td>
                                     <td><?= $value->merek_mesin ?></td>
-                                    <td><?= $value->hs_code ?></td>
+                                    <td>
+                                        <?php if($value->hs_code): ?>
+                                            <?=$value->hs_code?>
+                                        <?php else: ?>
+                                            -
+                                        <?php endif?>
+                                    </td>
                                     <td><?= $value->nilai_mesin ?></td>
                                     <td>
                                         <?= $value->jumlah_mesin ?>
                                     </td>
+                                    <?php if ($value->status != null || $value->keterangan != null): ?>
+                                        <td>
+                                            <span class="badge badge-info badge-sm"><?= $value->status ?></span>                                            
+                                        </td>
+                                        <td>
+                                            <?= $value->keterangan ?>
+                                        </td>
+
+                                    <?php else: ?>
+                                        <?php if ($this->session->userdata('level_user') == 'sub_koordinator'): ?> 
+                                            <form action="<?=base_url('master-list/update_status_produk')?>" method="post">
+                                                <input type="hidden" name="id_produk" value="<?= encode_id($value->id_produk)?>">
+                                                <input type="hidden" name="id_permohonan" value="<?=$this->input->get('ref')?>">
+                                                <td>
+                                                    <select required name="status">
+                                                        <option disabled selected value="">Choose..</option>
+                                                        <option value="Disetujui">Disetujui</option>
+                                                        <option value="Ditolak">Ditolak</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <textarea required name="keterangan" id="" cols="30" rows="1"></textarea>
+                                                    <button type="submit" style="margin-top: -22px; margin-left: 10px;" class="btn btn-xs btn-success">
+                                                        submit
+                                                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                    </button>
+                                                </td>
+                                            </form>
+                                            <?php else: ?>
+                                                <td>
+                                                    -                              
+                                                </td>                                                
+                                                <td>
+                                                    -
+                                                </td>
+                                        <?php endif ?>
+                                    <?php endif ?>
+
                                 </tr>
 
                                 <tr class="border-0 detail-row bgc-white">
@@ -204,7 +250,14 @@
                                                         <h5 class="text-primary-m2">Produk Details</h5>
                                                         <div class="bgc-white px-1 bo1rder-1 brc-secondary-l2 radius-1">
                                                             <table class="table table table-striped-info table-borderless">
-                                                                <tbody>
+                                                                <tbody> 
+                                                                    <?php if(!$value->hs_code): ?>
+                                                                    <tr>
+                                                                        <td class="text-95 text-default-d3">Dokumen Surat Asosiasi</td>
+                                                                        <td class="text-secondary-d2"><a href="<?= base_url('media/') ?><?= $value->dokumen_surat_asosiasi ?>" target="_blank" rel="noopener noreferrer"><?= $value->dokumen_surat_asosiasi ?></a></td>
+                                                                    </tr>
+                                                                        
+                                                                    <?php endif?>
                                                                     <tr>
                                                                         <td class="text-95 text-default-d3">Kegunaan</td>
                                                                         <td class="text-secondary-d2"><?= $value->kegunaan ?></td>
@@ -246,16 +299,28 @@
                                                                         <td class="text-secondary-d2"><?= $value->sumber_pembiayaan ?></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="text-95 text-default-d3">Nama Produk</td>
-                                                                        <td class="text-secondary-d2"><?= $value->nama_produk ?></td>
+                                                                        <td class="text-95 text-default-d3">Nama Produk (kapasitas sebelum produksi)</td>
+                                                                        <td class="text-secondary-d2"><?= $value->nama_produk_sebelum ?></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="text-95 text-default-d3">Jumlah Produk</td>
-                                                                        <td class="text-secondary-d2"><?= $value->jumlah_produk ?></td>
+                                                                        <td class="text-95 text-default-d3">Jumlah Produk (kapasitas sebelum produksi)</td>
+                                                                        <td class="text-secondary-d2"><?= $value->jumlah_produk_sebelum ?></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="text-95 text-default-d3">Nilai Produk</td>
-                                                                        <td class="text-secondary-d2"><?= $value->nilai_produk ?></td>
+                                                                        <td class="text-95 text-default-d3">Nilai Produk (kapasitas sebelum produksi)</td>
+                                                                        <td class="text-secondary-d2"><?= $value->nilai_produk_sebelum ?></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-95 text-default-d3">Nama Produk (kapasitas sesudah produksi)</td>
+                                                                        <td class="text-secondary-d2"><?= $value->nama_produk_sesudah ?></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-95 text-default-d3">Jumlah Produk (kapasitas sesudah produksi)</td>
+                                                                        <td class="text-secondary-d2"><?= $value->jumlah_produk_sesudah ?></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-95 text-default-d3">Nilai Produk (kapasitas sesudah produksi)</td>
+                                                                        <td class="text-secondary-d2"><?= $value->nilai_produk_sesudah ?></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="text-95 text-default-d3">Penyerapan Tenaga Kerja</td>
@@ -353,7 +418,7 @@
                                 <input type="hidden" value="<?= $this->input->get('ref') ?>" name="ref">
                                 <?php if ($acc_dirjen == 'pending') : ?>
                                     <label for="form-field-select-1">Setujui Permohonan?</label>
-                                    <select name="acc_dirjen" class="form-control" id="acc_dirjen">
+                                    <select required name="acc_dirjen" class="form-control" id="acc_dirjen">
                                         <option value=""></option>
                                         <option value="true">Ya</option>
                                         <option value="false">Tidak</option>
@@ -374,6 +439,10 @@
 
                                 <label style="margin-top: 15px;" for="form-field-select-1">Catatan <span style="color: red;">*</span></label>
                                 <textarea id="summernote" name="note"></textarea>
+                                <?php if ($this->session->userdata('level_user') == 'sub_koordinator') : ?>
+                                    <label style="margin-top: 15px;" for="form-field-select-1">Catatan Untuk Pemohon <input type="checkbox" id="checkbok_catatan_pemohon" class="ace-switch input-sm"></label>
+                                    <textarea id="catatan_pemohon" name="catatan_pemohon"></textarea>
+                                <?php endif?>
                                 <div class="my-5 border-t-1 brc-grey-l1 bgc-grey-l3 py-3">
                                     <div class="offset-md-3 col-md-9">
                                         <button id="btn-submit" class="btn btn-info" type="submit">
@@ -429,6 +498,7 @@
 
                                 <label style="margin-top: 15px;" for="form-field-select-1">Catatan</label>
                                 <textarea disabled required id="summernote" name="note"></textarea>
+                               
                                 <div class="my-5 border-t-1 brc-grey-l1 bgc-grey-l3 py-3">
                                     <div class="offset-md-3 col-md-9">
                                         <button style="cursor: not-allowed; pointer-events: all !important;" disabled class="btn btn-info" type="submit">
@@ -465,13 +535,42 @@
 
 <script>
     $('#acc_dirjen').on('change', function() {
-        if (this.value == 'true') {
+        if (this.value == 'true' || this.value == 'false' ) {
             $("#btn-submit").html(`<i class="fa fa-check mr-1"></i>Selesai`);
         } else {
             $("#btn-submit").html(`<i class="fa fa-check mr-1"></i>Disposisi`);
 
         }
     });
+</script>
+
+<script>
+    $("#checkbok_catatan_pemohon").change(function() {
+    $('#catatan_pemohon').hide()
+    
+    if(this.checked) {
+        $('#catatan_pemohon').summernote('destroy');
+        $('#catatan_pemohon').summernote({
+            height: 250,
+            minHeight: 150,
+            maxHeight: 400,
+        });
+        
+    }else{
+        $('#catatan_pemohon').summernote('destroy');
+        $('#catatan_pemohon').summernote({
+            height: 250,
+            minHeight: 150,
+            maxHeight: 400,
+            airMode: true,
+        });
+        $('#catatan_pemohon').text('')
+        <?php if ($this->session->userdata('level_user') == 'sub_koordinator') : ?>
+            $('.note-editable:last').remove()
+        <?php endif?>
+
+    }
+});
 </script>
 
 <script>
@@ -719,6 +818,16 @@
             minHeight: 150,
             maxHeight: 400
         });
+
+        $('#catatan_pemohon').summernote({
+            height: 250,
+            minHeight: 150,
+            maxHeight: 400,
+            airMode: true,
+        });
+        <?php if ($this->session->userdata('level_user') == 'sub_koordinator') : ?>
+            $('.note-editable:last').remove()
+        <?php endif?>
 
 
 

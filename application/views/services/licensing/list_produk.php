@@ -16,7 +16,7 @@
         <div class="page-content">
             <div class="page-header">
                 <h1>
-                    List Produk
+                    List Produk <?=$data_permohonan->nomor_surat_permohonan?>
                 </h1>
                 <a href="<?= base_url('services/licensing/formulir-produk?ref=') ?><?=$this->input->get('ref')?>" style="margin-top:10px;" class="btn btn-info">
                     <i class="ace-icon fa fa-pencil align-top bigger-125"></i>
@@ -50,6 +50,7 @@
                                 <th>HS Code</th>
                                 <th>Nilai Mesin</th>
                                 <th>Jumlah Mesin</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -60,9 +61,16 @@
                                     <td><?=$key+1?></td>
                                     <td><?=$value->nama_mesin?></td>
                                     <td><?=$value->merek_mesin?></td>
-                                    <td><?=$value->hs_code?></td>
+                                    <td>
+                                        <?php if($value->hs_code): ?>
+                                            <?=$value->hs_code?>
+                                        <?php else: ?>
+                                            -
+                                        <?php endif?>
+                                    </td>
                                     <td><?=$value->nilai_mesin?></td>
                                     <td><?=$value->jumlah_mesin?></td>
+                                    <td><span class="label label-sm label-info"><?=$value->status?></span></td>
                                     <td>
     
                                         <div class="hidden-sm hidden-xs action-buttons">

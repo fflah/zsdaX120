@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> HS Code </label>
                             <div class="col-sm-9">
-                                <select required id="hs_code" name="hs_code" class="chosen-select form-control" style="width: 500px;" tabindex="-1" aria-hidden="true">
+                                <select id="hs_code" name="hs_code" class="chosen-select form-control" style="width: 500px;" tabindex="-1" aria-hidden="true">
                                     <option value="">&nbsp;</option>
                                     <option value="7308.90.99">7308.90.99</option>
                                     <option value="8481.10.19">8481.10.19</option>
@@ -1580,6 +1580,28 @@
                             </div>
                         </div>
                         <div class="space-4"></div>
+                        <!-- style="display: none;" -->
+                        <div id="section_dokumen_surat_asosiasi" style="display: none;" class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Dokumen Surat Asosiasi </label>
+
+                            <div class="col-xs-12 col-sm-5">
+                                <div class="clearfix">
+                                    <span style="font-weight: 700;">Silakan upload dokumen surat asosiasi dibawah ini!</span>
+                                    <input type="file" name="dokumen_surat_asosiasi" id="dokumen_surat_asosiasi" class="form-control col-xs-12 col-sm-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="section_hs_code" style="display: none ;" class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Manual Input HS Code </label>
+
+                            <div class="col-xs-12 col-sm-5">
+                                <div class="clearfix">
+                                    <span style="font-weight: 700;">Silakan Input HS Code anda disini!</span>
+                                    <input type="text" id="manual_hs_code" class="form-control col-xs-12 col-sm-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Kegunaan </label>
@@ -1610,18 +1632,18 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="nilai_mesin" id="nilai_mesin" class="form-control col-xs-12 col-sm-5">
+                                    <input placeholder="Rupiah" required type="number" name="nilai_mesin" id="nilai_mesin" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
                         <div class="space-4"></div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Umur Teknis Mesin </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Umur Teknis Mesin  </label>
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="umur_teknis_mesin" id="umur_teknis_mesin" class="form-control col-xs-12 col-sm-5">
+                                    <input required type="number" name="umur_teknis_mesin" id="umur_teknis_mesin" placeholder="Dalam satuan tahun" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -1643,7 +1665,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="jumlah_mesin" id="jumlah_mesin" class="form-control col-xs-12 col-sm-5">
+                                    <input required type="number" name="jumlah_mesin" id="jumlah_mesin" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2528,13 +2550,16 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <h4 style="font-weight: 600; text-decoration: underline; margin-left: 19%;" class="col-md-12 col-md-offset-2">Kapasitas Produk Sebelum</h3>
                         <div class="space-4"></div>
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="file_skhu">Nama Produk:</label>
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="nama_produk" id="nama_produk" class="form-control col-xs-12 col-sm-5">
+                                    <input required type="text" name="nama_produk_sebelum" id="nama_produk" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2544,7 +2569,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="jumlah_produk" id="jumlah_produk" class="form-control col-xs-12 col-sm-5">
+                                    <input placeholder="Pcs/unit per tahun" required type="number" name="jumlah_produk_sebelum" id="jumlah_produk" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2554,7 +2579,41 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="nilai_produk" id="nilai_produk" class="form-control col-xs-12 col-sm-5">
+                                    <input placeholder="Rupiah" required type="number" name="nilai_produk_sebelum" id="nilai_produk_sebelum" class="form-control col-xs-12 col-sm-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+
+
+                        <h4 style="font-weight: 600; text-decoration: underline; margin-left: 19%;" class="col-md-12 col-md-offset-2">Kapasitas Produk Sesudah</h3>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="file_skhu">Nama Produk:</label>
+
+                            <div class="col-xs-12 col-sm-5">
+                                <div class="clearfix">
+                                    <input required type="text" name="nama_produk_sesudah" id="nama_produk" class="form-control col-xs-12 col-sm-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="file_skhu">Jumlah Produk:</label>
+
+                            <div class="col-xs-12 col-sm-5">
+                                <div class="clearfix">
+                                    <input placeholder="Pcs/unit per tahun" required type="number" name="jumlah_produk_sesudah" id="jumlah_produk" class="form-control col-xs-12 col-sm-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="file_skhu">Nilai produk:</label>
+
+                            <div class="col-xs-12 col-sm-5">
+                                <div class="clearfix">
+                                    <input placeholder="Rupiah" required type="number" name="nilai_produk_sesudah" id="nilai_produk" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2564,7 +2623,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input required type="text" name="penyerapan_tenaga_kerja" id="penyerapan_tenaga_kerja" class="form-control col-xs-12 col-sm-5">
+                                    <input required type="number" name="penyerapan_tenaga_kerja" id="penyerapan_tenaga_kerja" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2599,4 +2658,122 @@
 
 <script>
     $(".chosen-select").chosen();
+    $("#hs_code").bind('chosen:no_results', chosenNoResults);
+
+    function chosenNoResults(evt, params) {
+        $('#section_dokumen_surat_asosiasi').css('display', 'none');
+        $('#dokumen_surat_asosiasi').removeAttr('name');
+        $('#hs_code').removeAttr('name');
+        $('#section_hs_code').css('display', '');
+        $('#manual_hs_code').attr('name', 'hs_code');
+        
+        setTimeout(
+        function() 
+        {
+            $('#hs_code').val('').trigger('chosen:updated');
+        }, 1000);
+        
+        
+
+    }
+
+        
+    $('#hs_code').on('change', function() {
+        if (this.value != null){
+            $('#section_dokumen_surat_asosiasi').css('display', '');
+            $('#section_hs_code').css('display', 'none');
+            $('#manual_hs_code').removeAttr('name');
+            $('#dokumen_surat_asosiasi').attr('name', 'dokumen_surat_asosiasi');
+    }
+
+    });
+</script>
+<script>
+    // Jquery Dependency
+
+$("input[data-type='currency']").on({
+    keyup: function() {
+      formatCurrency($(this));
+    },
+    blur: function() { 
+      formatCurrency($(this), "blur");
+    }
+});
+
+
+function formatNumber(n) {
+  // format number 1000000 to 1,234,567
+  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+
+function formatCurrency(input, blur) {
+  // appends $ to value, validates decimal side
+  // and puts cursor back in right position.
+  
+  // get input value
+  var input_val = input.val();
+  
+  // don't validate empty input
+  if (input_val === "") { return; }
+  
+  // original length
+  var original_len = input_val.length;
+
+  // initial caret position 
+  var caret_pos = input.prop("selectionStart");
+    
+  // check for decimal
+  if (input_val.indexOf(".") >= 0) {
+
+    // get position of first decimal
+    // this prevents multiple decimals from
+    // being entered
+    var decimal_pos = input_val.indexOf(".");
+
+    // split number by decimal point
+    var left_side = input_val.substring(0, decimal_pos);
+    var right_side = input_val.substring(decimal_pos);
+
+    // add commas to left side of number
+    left_side = formatNumber(left_side);
+
+    // validate right side
+    right_side = formatNumber(right_side);
+    
+    // On blur make sure 2 numbers after decimal
+    if (blur === "blur") {
+      right_side += "00";
+    }
+    
+    // Limit decimal to only 2 digits
+    right_side = right_side.substring(0, 2);
+
+    // join number by .
+    input_val = "$" + left_side + "." + right_side;
+
+  } else {
+    // no decimal entered
+    // add commas to number
+    // remove all non-digits
+    input_val = formatNumber(input_val);
+    input_val = "$" + input_val;
+    
+    // final formatting
+    if (blur === "blur") {
+      input_val += ".00";
+    }
+  }
+  
+  // send updated string to input
+  input.val(input_val);
+
+  // put caret back in the right position
+  var updated_len = input_val.length;
+  caret_pos = updated_len - original_len + caret_pos;
+  input[0].setSelectionRange(caret_pos, caret_pos);
+}
+
+
+
 </script>

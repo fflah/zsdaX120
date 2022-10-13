@@ -72,5 +72,6 @@ $route['master-list/status-proses'] = 'MasterList/status_proses';
 $route['master-list/sudah-terbit'] = 'MasterList/terbit';
 $route['master-list/detail-permohonan'] = 'MasterList/detail_permohonan';
 $route['master-list/disposisi'] = 'MasterList/disposisi';
+$route['master-list/update_status_produk'] = 'MasterList/update_status_produk';
 
 

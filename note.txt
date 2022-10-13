@@ -1,0 +1,29 @@
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit delectus ipsa reprehenderit provident non quibusdam molestiae veritatis qui iste quos. Exercitationem libero illum eius ducimus autem, doloremque laudantium iusto qui.
+
+/// Form Tambah Produk ///
+1. hs code -> jika code tidak di temukan unggah dokumen surat asosiasi -> Done
+
+///Surat rekomendasi PDF///
+2. NIB di pdf surat rekomendasi -> nomor_induk_berusaha -> Done
+3. Nomor surat: id/ -> (Pending)
+4. Pengajuan fasilitas masterlist dalam rangka ____ -> Alasan permohonan Masterlist -> Done
+5. Nilai mesin/peralatan yang diimpor adalah sebesar ____ -> jumlah nilai mesin di seluruh produk -> Done
+6. 3. Nilai pembebasan bea masuk ___ (nilai total mesin (point 2) dikali 5 %) -> Done
+7. Investasi ini diharapkan memberikan kontribusi negara dengan PPN sebesar (jumlah -> Done
+produk dihasilkan per tahun dikali harga produk dikali umur teknis dikali PPN 11%)
+rumus: jumlah produk * harga produk * umur teknis mesin * 11%
+
+
+8. Investasi ini diharapkan memberikan kontribusi negara dengan penyerapan tenaga kerja sebesar ____ -> jumlah seluruh tenaga kerja di setiap produk -> Done
+9. Berdasarkan hal-hal tersebut, maka permohonan ____ sebagaimana dimaksu -> nama perusahaan  -> Done
+10 jenis barang di lampiran surat rekomendasi -> nama mesin -> Done
+11 isi Satuan di lampiran surat rekomendasi -> "Unit" -> Done
+
+///Status Proses///
+ditambah kolom status dari pengajuan -> Done
+
+///Page Sudah Terbit ///
+Semua aduan yang sudah selesai -> Done
+
+//Tambah//
+Tambah section Catatan Untuk Pemohon yang dapat di liat oleh pemohon di detail permohoan di session user pemohon -> Done

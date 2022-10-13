@@ -52,8 +52,22 @@
                                     <tr>
                                         <td style="width: 200px;">HS Code</td>
                                         <td>:</td>
-                                        <td style="font-weight:700 ;"><?=$data_produk->hs_code?></td>
+                                        <td style="font-weight:700 ;">
+                                        <?php if($data_produk->hs_code): ?>
+                                            <?=$data_produk->hs_code?>
+                                        <?php else: ?>
+                                            -
+                                        <?php endif?>
+
+                                        </td>
                                     </tr>
+                                    <?php if($data_produk->dokumen_surat_asosiasi != null): ?>
+                                        <tr>
+                                        <td style="width: 200px;">Dokumen Surat Asosiasi</td>
+                                        <td>:</td>
+                                        <td style="font-weight:700 ;"><a target="_blank" href="<?=base_url('media/').$data_produk->dokumen_surat_asosiasi?>"><?=$data_produk->dokumen_surat_asosiasi?></a></td>
+                                    </tr>
+                                    <?php endif?>
                                     <tr>
                                         <td style="width: 200px;">Kegunaan</td>
                                         <td>:</td>
@@ -110,19 +124,34 @@
                                         <td style="font-weight:700 ;"><?=$data_produk->sumber_pembiayaan?></td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 200px;">Nama Produk</td>
+                                        <td style="width: 200px;">Nama Produk (kapasitas produk sebelum)</td>
                                         <td>:</td>
-                                        <td style="font-weight:700 ;"><?=$data_produk->nama_produk?></td>
+                                        <td style="font-weight:700 ;"><?=$data_produk->nama_produk_sebelum?></td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 200px;">Jumlah Produk</td>
+                                        <td style="width: 200px;">Jumlah Produk (kapasitas produk sebelum)</td>
                                         <td>:</td>
-                                        <td style="font-weight:700 ;"><?=$data_produk->jumlah_produk?></td>
+                                        <td style="font-weight:700 ;"><?=$data_produk->jumlah_produk_sebelum?></td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 200px;">Nilai produk</td>
+                                        <td style="width: 200px;">Nilai produk (kapasitas produk sebelum)</td>
                                         <td>:</td>
-                                        <td style="font-weight:700 ;"><?=$data_produk->nilai_produk?></td>
+                                        <td style="font-weight:700 ;"><?=$data_produk->nilai_produk_sebelum?></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 200px;">Nama Produk (kapasitas produk sesudah)</td>
+                                        <td>:</td>
+                                        <td style="font-weight:700 ;"><?=$data_produk->nama_produk_sesudah?></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 200px;">Jumlah Produk (kapasitas produk sesudah)</td>
+                                        <td>:</td>
+                                        <td style="font-weight:700 ;"><?=$data_produk->jumlah_produk_sesudah?></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 200px;">Nilai produk (kapasitas produk sesudah)</td>
+                                        <td>:</td>
+                                        <td style="font-weight:700 ;"><?=$data_produk->nilai_produk_sesudah?></td>
                                     </tr>
                                     <tr>
                                         <td style="width: 200px;">Penyerapan tenaga kerja</td>

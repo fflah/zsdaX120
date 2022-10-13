@@ -28,30 +28,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="d-style bgc-h-default-l4">
-                            <td class="text-600 text-grey-d1">61</td>
-                            <td>
-                                <span class="h5  text-primary">PT Rainbow Tubulan Indonesian</span>
-                                <div class="text-95 text-secondary">
-                                    Surat No. 134/121/41/21214/54/AS
-                                </div>
-                                <div class="text-95 text-secondary">
-                                    Tgl. 22 January 2022
-                                </div>
-                            </td>
-                            <td class="text-grey">
-                                Rekom Gas Bumi Dude
-                            </td>
-                            <td class="text-grey">Kordinator</td>
-                            <td class="text-grey">
-                            <div>
-                                <span class='badge badge-warning badge-sm'>On Vacation</span></div>
-                            </td>
-                            
-                            <td>
-                                <a data-rel="tooltip" data-action="edit" title="Edit" href="#" class=""><i class="fa fa-edit text-blue-m1 text-120"></i></a>
-                            </td>
-                        </tr>
+                        <?php foreach ($data_permohonan as $key => $value) : ?>
+
+                            <tr style="cursor: pointer;" onclick="window.location.href = '<?= base_url('master-list/detail-permohonan?ref=') ?><?= encode_id($value->id_formulir) ?>'" class="d-style bgc-h-default-l4">
+                                <td class="text-600 text-grey-d1"><?= $key + 1 ?></td>
+                                <td>
+                                    <span class="h5  text-primary"><?= $value->nama_pemohon ?></span>
+                                    <div class="text-95 text-secondary">
+                                        Surat No. <?= $value->nomor_surat_permohonan ?>
+                                    </div>
+                                    <div class="text-95 text-secondary">
+                                        Tgl. <?= $value->date_created ?>
+                                    </div>
+                                </td>
+                                <td class="text-grey">
+                                    <?= $value->alasan_permohonan ?>
+                                </td>
+
+                                <td>
+                                    <?php if ($value->state_access == 'done') : ?>
+                                        <span style="border: 1px solid #6bb182; padding: 4px; border-radius: 8px;" class="h6 text-success"><i class="fa fa-check"></i> proses selesai</span>
+                                    <?php else : ?>
+                                        <span style="border: 1px solid #2087c5; padding: 4px; border-radius: 8px;" class="h6 text-primary"><i class="fa fa-user"></i> <?= $value->state_access ?></span>
+                                    <?php endif ?>
+                                </td>
+                                <td class="text-grey">
+                                    <div>
+                                        <span class='badge badge-warning badge-sm'><?= $value->status ?></span>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <a data-rel="tooltip" href="<?= base_url('master-list/detail-permohonan?ref=') ?><?= encode_id($value->id_formulir) ?>" class=""><i class="fa fa-edit text-blue-m1 text-120"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                        
                     </tbody>
                 </table>
             </div>
@@ -68,194 +80,197 @@
 
 
 <script>
-    
-jQuery(function($) {
-  var tableId = '#datatable';
-  var tableWapperId = '#datatable_wrapper';
-  var tableHeader = '#table-header';
+    jQuery(function($) {
+        var tableId = '#datatable';
+        var tableWapperId = '#datatable_wrapper';
+        var tableHeader = '#table-header';
 
 
-  $.extend( true, $.fn.dataTable.defaults, {
-    dom:
-      "<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6 text-right table-tools-col'f>>" +
-      "<'row'<'col-12'tr>>" +
-      "<'row'<'col-12 col-md-5'i><'col-12 col-md-7'p>>",
-    renderer: 'bootstrap'
-  });
-  
+        $.extend(true, $.fn.dataTable.defaults, {
+            dom: "<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6 text-right table-tools-col'f>>" +
+                "<'row'<'col-12'tr>>" +
+                "<'row'<'col-12 col-md-5'i><'col-12 col-md-7'p>>",
+            renderer: 'bootstrap'
+        });
 
-  var $_table = $(tableId).DataTable({
 
-    colReorder: {
-      //disable column reordering for first and last columns
-      fixedColumnsLeft: 1,
-      fixedColumnsRight: 1
-    },
-    
-    //"sDom": 'BRfrtlip',
+        var $_table = $(tableId).DataTable({
 
-    classes: {
-      sLength: "dataTables_length text-left w-auto",
-    },
+            colReorder: {
+                //disable column reordering for first and last columns
+                fixedColumnsLeft: 1,
+                fixedColumnsRight: 1
+            },
 
-   
-    buttons: {
-      dom: {
-        button: {
-          className: 'btn' //remove the default 'btn-secondary'
-        },
-        container: {
-          className: 'dt-buttons btn-group bgc-white-tp2 text-right w-auto'
+            //"sDom": 'BRfrtlip',
+
+            classes: {
+                sLength: "dataTables_length text-left w-auto",
+            },
+
+
+            buttons: {
+                dom: {
+                    button: {
+                        className: 'btn' //remove the default 'btn-secondary'
+                    },
+                    container: {
+                        className: 'dt-buttons btn-group bgc-white-tp2 text-right w-auto'
+                    }
+                },
+
+                buttons: [{
+                        "extend": "colvis",
+                        "text": "<i class='far fa-eye text-125 text-dark-m2'></i> <span class='d-none'>Show/hide columns</span>",
+                        "className": "btn-sm btn-outline-info btn-h-outline-primary btn-a-outline-primary",
+                        columns: ':not(:first)'
+                    },
+
+                    {
+                        "extend": "copy",
+                        "text": "<i class='far fa-copy text-125 text-purple'></i> <span class='d-none'>Copy to clipboard</span>",
+                        "className": "btn-sm btn-outline-info btn-h-outline-primary btn-a-outline-primary"
+                    },
+
+                    {
+                        "extend": "csv",
+                        "text": "<i class='fa fa-database text-125 text-success-m2'></i> <span class='d-none'>Export to CSV</span>",
+                        "className": "btn-sm btn-outline-info btn-h-outline-primary btn-a-outline-primary"
+                    },
+
+                    {
+                        "extend": "print",
+                        "text": "<i class='fa fa-print text-125 text-orange-d1'></i> <span class='d-none'>Print</span>",
+                        "className": "btn-sm btn-outline-info btn-h-outline-primary",
+                        autoPrint: false,
+                        message: 'This print was produced using the Print button for DataTables'
+                    }
+                ]
+
+            },
+
+
+            //first and last column are not sortable
+            columnDefs: [{
+                    orderable: false,
+                    className: null,
+                    targets: 0
+                },
+                {
+                    orderable: false,
+                    className: null,
+                    targets: -1
+                }
+            ],
+
+            //multiple row selection
+            select: {
+                style: 'multis'
+            },
+
+
+            order: [], //no specific initial ordering
+
+            language: {
+                search: '<i class="fa fa-search pos-abs mt-2 ml-2 text-blue-m2"></i>',
+                searchPlaceholder: " Search Permohonan..."
+            }
+        });
+
+        //specify position of table buttons
+        $('.table-tools-col') //specified above in $.fn.dataTable.defaults
+            .append($_table.buttons().container())
+            //move searchbox into table header
+            .find('.dataTables_filter').appendTo('.page-tools').find('input').addClass('pl-4 radius-round')
+            //and add a "plus" button
+            .end().append('');
+
+
+        //var defaultColvisAction = $_table.button(0).action();
+        //$_table.button(0).action(function (e, dt, button, config) {
+        //	defaultColvisAction(e, dt, button, config);
+        //});
+
+        //add/remove bgc-h-* class when selecting/deselecting rows
+        var _highlightSelectedRow = function(row) {
+            row.querySelector('input[type=checkbox]').checked = true;
+            row.classList.add('bgc-success-l3');
+            row.classList.remove('bgc-h-default-l4');
         }
-      },
+        var _unhighlightDeselectedRow = function(row) {
+            row.querySelector('input[type=checkbox]').checked = false;
+            row.classList.remove('bgc-success-l3');
+            row.classList.add('bgc-h-default-l4');
+        }
+        $_table.on('select', function(e, dt, type, index) {
+            if (type == 'row') {
+                var row = $_table.row(index).node();
+                _highlightSelectedRow(row);
+            }
+        }).on('deselect', function(e, dt, type, index) {
+            if (type == 'row') {
+                var row = $_table.row(index).node();
+                _unhighlightDeselectedRow(row);
+            }
+        });
 
-      buttons: [
-        {
-          "extend": "colvis",
-          "text": "<i class='far fa-eye text-125 text-dark-m2'></i> <span class='d-none'>Show/hide columns</span>",
-          "className": "btn-sm btn-outline-info btn-h-outline-primary btn-a-outline-primary",
-          columns: ':not(:first)'
-        },
-
-        {
-          "extend": "copy",
-          "text": "<i class='far fa-copy text-125 text-purple'></i> <span class='d-none'>Copy to clipboard</span>",
-          "className": "btn-sm btn-outline-info btn-h-outline-primary btn-a-outline-primary"
-        },
-
-        {
-          "extend": "csv",
-          "text": "<i class='fa fa-database text-125 text-success-m2'></i> <span class='d-none'>Export to CSV</span>",
-          "className": "btn-sm btn-outline-info btn-h-outline-primary btn-a-outline-primary"
-        },
-
-        {
-          "extend": "print",
-          "text": "<i class='fa fa-print text-125 text-orange-d1'></i> <span class='d-none'>Print</span>",
-          "className": "btn-sm btn-outline-info btn-h-outline-primary",
-          autoPrint: false,
-          message: 'This print was produced using the Print button for DataTables'
-        }	
-      ]
-
-    },
-
-    
-    //first and last column are not sortable
-    columnDefs: [
-      {
-        orderable: false,
-        className: null,
-        targets:   0
-      },
-      {
-        orderable: false,
-        className: null,
-        targets:   -1
-      }
-    ],
-    
-    //multiple row selection
-    select: {
-      style: 'multis'
-    },
-
-    
-    order: [],//no specific initial ordering
-
-    language: {
-      search: '<i class="fa fa-search pos-abs mt-2 ml-2 text-blue-m2"></i>',
-      searchPlaceholder: " Search Permohonan..."
-    }
-  });
-
-  //specify position of table buttons
-  $('.table-tools-col' )//specified above in $.fn.dataTable.defaults
-  .append( $_table.buttons().container() )
-  //move searchbox into table header
-  .find('.dataTables_filter').appendTo('.page-tools').find('input').addClass('pl-4 radius-round')
-  //and add a "plus" button
-  .end().append('');
+        //when clicking the checkbox in table header, select/deselect all rows
+        $(tableId).on('click', 'th input[type=checkbox]', function() {
+            if (this.checked) {
+                $_table.rows().select().every(function() {
+                    _highlightSelectedRow(this.node());
+                });
+            } else {
+                $_table.rows().deselect().every(function() {
+                    _unhighlightDeselectedRow(this.node());
+                });
+            }
+        });
 
 
-  //var defaultColvisAction = $_table.button(0).action();
-	//$_table.button(0).action(function (e, dt, button, config) {
-	//	defaultColvisAction(e, dt, button, config);
-  //});
+        //add/remove bgc-h-* class to TH when soring columns
+        var previousTh = null;
+        var toggleTH_highlight = function(th) {
+            th.classList.toggle('bgc-yellow-l1');
+            th.classList.toggle('bgc-h-default-l3');
+            th.classList.toggle('text-blue-d2');
+        }
+        $(tableId).on('click', 'th:not(.sorting_disabled)', function() {
+            if (previousTh != null) toggleTH_highlight(previousTh); //unhighlight previous TH
+            toggleTH_highlight(this);
+            previousTh = this;
+        });
 
-  //add/remove bgc-h-* class when selecting/deselecting rows
-  var _highlightSelectedRow = function(row) {
-    row.querySelector('input[type=checkbox]').checked = true;
-    row.classList.add('bgc-success-l3');
-    row.classList.remove('bgc-h-default-l4');
-  }
-  var _unhighlightDeselectedRow = function(row) {
-    row.querySelector('input[type=checkbox]').checked = false;
-    row.classList.remove('bgc-success-l3');
-    row.classList.add('bgc-h-default-l4');
-  }
-  $_table.on('select', function (e, dt, type, index) {
-    if ( type == 'row' ) {
-      var row = $_table.row( index ).node();
-      _highlightSelectedRow(row);
-    }
-  }).on('deselect', function (e, dt, type, index) {
-    if ( type == 'row' ) {
-      var row = $_table.row( index ).node();
-      _unhighlightDeselectedRow(row);
-    }
-  });
+        //don't select row when clicking on the edit icon
+        $('a[data-action=edit').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); //don't select
+        });
 
-  //when clicking the checkbox in table header, select/deselect all rows
-  $(tableId).on('click', 'th input[type=checkbox]', function () {
-    if(this.checked) {
-      $_table.rows().select().every(function() {
-        _highlightSelectedRow(this.node());
-      });
-    }
-    else {
-      $_table.rows().deselect().every(function() {
-        _unhighlightDeselectedRow(this.node());
-      });
-    }
-  });
+        //highlight DataTable header and footer
+        //also already done in CSS, but you can use custom colors here
+        //$(tableWapperId).find('> .row').eq(0).addClass('bgc-primary-l4').end().eq(2).addClass('bgc-primary-l4');
 
 
-    //add/remove bgc-h-* class to TH when soring columns
-    var previousTh = null;
-    var toggleTH_highlight = function(th) {
-      th.classList.toggle('bgc-yellow-l1');
-      th.classList.toggle('bgc-h-default-l3');
-      th.classList.toggle('text-blue-d2');
-    }
-    $(tableId).on('click', 'th:not(.sorting_disabled)', function () {
-      if(previousTh != null) toggleTH_highlight(previousTh);//unhighlight previous TH
-      toggleTH_highlight(this);
-      previousTh = this;
+        //enable tooltips
+        setTimeout(function() {
+            $('.dt-buttons button').each(function() {
+                var div = $(this).find('span').first();
+                if (div.length == 1) $(this).tooltip({
+                    container: 'body',
+                    title: div.parent().text()
+                });
+                else $(this).tooltip({
+                    container: 'body',
+                    title: $(this).text()
+                });
+            });
+            $('[data-rel=tooltip').tooltip({
+                container: 'body'
+            });
+        }, 0);
+
+
+
     });
-
-    //don't select row when clicking on the edit icon
-    $('a[data-action=edit').on('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();//don't select
-    });
-
-    //highlight DataTable header and footer
-    //also already done in CSS, but you can use custom colors here
-    //$(tableWapperId).find('> .row').eq(0).addClass('bgc-primary-l4').end().eq(2).addClass('bgc-primary-l4');
-
-
-    //enable tooltips
-    setTimeout(function() {
-      $('.dt-buttons button').each(function() {
-        var div = $(this).find('span').first();
-        if(div.length == 1) $(this).tooltip({container: 'body', title: div.parent().text()});
-        else $(this).tooltip({container: 'body', title: $(this).text()});
-      });
-      $('[data-rel=tooltip').tooltip({container: 'body'});
-    }, 0);
-
-  
-
-});
 </script>

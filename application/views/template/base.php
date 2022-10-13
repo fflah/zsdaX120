@@ -314,7 +314,7 @@
 				<footer class="footer d-none d-sm-block">
 					<div class="footer-inner bgc-white-tp1">
 						<div class="pt-3 border-none border-t-3 brc-grey-l1 border-double">
-							<span class="text-primary-m2 font-bolder text-120">Ace</span>
+							<span class="text-primary-m2 font-bolder text-120">SIINas</span>
 							<span class="text-muted">Application &copy; 2020</span>
 
 							<span class="mx-3 action-buttons">

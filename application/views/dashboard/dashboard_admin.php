@@ -299,7 +299,7 @@
                             if (label) {
                                 label += ': ';
                             }
-                            label += "$" + parseFloat(tooltipItem.yLabel / 1000) + 'k';
+                            label +=  parseFloat(tooltipItem.yLabel);
                             return label;
                         }
                     }

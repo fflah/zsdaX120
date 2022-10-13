@@ -36,7 +36,7 @@
             </div><!-- /.page-header -->
             <div class="row">
                 <div class="col-xs-12">
-                    <?php if ($data_permohonan->acc_dirjen): ?> 
+                    <?php if ($data_permohonan->acc_dirjen == 'true'): ?> 
                     <div class="widget-box ui-sortable-handle" id="widget-box-1">
                             <div class="widget-header">
                                 <h4 class="widget-title" >Status Permohonan</h4>
@@ -51,6 +51,34 @@
                             </div>
                         </div>
                     </div>
+                    <?php elseif ($data_permohonan->acc_dirjen == 'false'):?>
+                    <div class="widget-box ui-sortable-handle" id="widget-box-1">
+                            <div class="widget-header">
+                                <h4 class="widget-title" >Status Permohonan</h4>
+                            </div>
+                            
+                        <div class="widget-body" style="margin-bottom: 20px;">
+                            <div class="widget-main" style="font-size: medium; text-align:center">
+                                <h2 style="color: #D77362;font-weight: 600;" >Mohon Maaf Permohonan Anda Belum Disetujui</h2>
+                                <h4>Silakan Silakan baca <a href="#catatan_pemohon"> Catatan Untuk Pemohon</a>, jika belum jelas silakan hubungi contact person kami, terimaksih.</h4>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <?php else:?>
+                        <div class="widget-box ui-sortable-handle" id="widget-box-1">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" >Status Permohonan</h4>
+                                </div>
+                                
+                            <div class="widget-body" style="margin-bottom: 20px;">
+                                <div class="widget-main" style="font-size: medium; text-align:center">
+                                    <h2 style="color: #8CBE71;font-weight: 600;" >Permohonan Anda Sedang Kami Proses</h2>
+                                    <h4>Silakan cek page ini secara berkala untuk mengetahui perkembangan permohonan anda</h4>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     <?php endif ?>
 
                     <div style="margin-top: 20px;" class="widget-box ui-sortable-handle" id="widget-box-1">
@@ -212,7 +240,15 @@
                                                                         <span><?=$value->kegunaan?></span>
                                                                     </div>
                                                                 </div>
-
+                                                                <?php if($value->dokumen_surat_asosiasi != null): ?>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Dokumen Surat Asosiasi </div>
+    
+                                                                        <div class="profile-info-value">
+                                                                            <span><a href="<?=base_url('media/')?><?=$value->dokumen_surat_asosiasi?>" target="_blank" rel="noopener noreferrer"><?=$value->dokumen_surat_asosiasi?></a></span>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endif ?>
                                                                 <div class="profile-info-row">
                                                                     <div class="profile-info-name"> Spesifikasi </div>
 
@@ -286,26 +322,50 @@
                                                                 </div>
 
                                                                 <div class="profile-info-row">
-                                                                    <div class="profile-info-name"> Nama Produk </div>
+                                                                    <div class="profile-info-name"> Nama Produk (kapasitas sebelum produksi) </div>
 
                                                                     <div class="profile-info-value">
-                                                                        <span><?=$value->nama_produk?></span>
+                                                                        <span><?=$value->nama_produk_sebelum?></span>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="profile-info-row">
-                                                                    <div class="profile-info-name"> Jumlah Produk </div>
+                                                                    <div class="profile-info-name"> Jumlah Produk (kapasitas sebelum produksi)</div>
 
                                                                     <div class="profile-info-value">
-                                                                        <span><?=$value->jumlah_produk?></span>
+                                                                        <span><?=$value->jumlah_produk_sebelum?></span>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="profile-info-row">
-                                                                    <div class="profile-info-name"> Nilai Produk </div>
+                                                                    <div class="profile-info-name"> Nilai Produk (kapasitas sebelum produksi)</div>
 
                                                                     <div class="profile-info-value">
-                                                                        <span><?=$value->nilai_produk?></span>
+                                                                        <span><?=$value->nilai_produk_sebelum?></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Nama Produk (kapasitas sesudah produksi) </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span><?=$value->nama_produk_sesudah?></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Jumlah Produk (kapasitas sesudah produksi)</div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span><?=$value->jumlah_produk_sesudah?></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Nilai Produk (kapasitas sesudah produksi)</div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span><?=$value->nilai_produk_sesudah?></span>
                                                                     </div>
                                                                 </div>
 
@@ -334,67 +394,21 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="widget-box ui-sortable-handle" style="margin-top: 20px;" id="widget-box-1">
+                    <?php if ($data_permohonan->catatan_pemohon):?>
+                    <div style="margin-top: 20px;" class="widget-box ui-sortable-handle" id="catatan_pemohon">
                         <div class="widget-header">
-                            <h4 class="widget-title">Histori Catatan</h4>
+                            <h4 class="widget-title">Catatan Untuk Pemohon</h4>
                         </div>
 
                         <div class="widget-body">
                             <div class="widget-main" style="font-size: medium;">
-                            <?php foreach ($data_history as $key => $value): ?> 
-                            
-                                <div class="timeline-container">
-                                    <div class="timeline-label">
-                                        <span class="label label-primary arrowed-in-right label-lg">
-                                            <b><?php echo($value['tanggal'])?></b>
-                                        </span>
-                                    </div>
-
-                                    <div class="timeline-items">
-                                    <?php foreach ($value['data'] as $key => $data): ?> 
-                                    
-                                        <div class="timeline-item clearfix">
-                                            <div class="timeline-info">
-                                                <img alt="Susan't Avatar" src="<?= base_url() ?>assets/images/avatars/user.jpg">
-                                            </div>
-
-                                            <div class="widget-box transparent">
-                                                <div class="widget-header widget-header-small">
-                                                    <h4 class="widget-title smaller">
-                                                        <a href="#" class="blue"> <?=$data->nama_user?> </a>
-                                                    </h4>
-
-                                                    <span class="widget-toolbar no-border">
-                                                        <i class="ace-icon fa fa-clock-o bigger-110"></i>
-                                                        <?=$data->jam?> WIB
-                                                    </span>
-
-
-                                                </div>
-
-                                                <div class="widget-body">
-                                                    <div class="widget-main">
-                                                        <div style="font-size: 15px;font-weight: 700;margin-bottom: 5px;margin-left: -13px;" class="col-lg-12 text-grey-m2 text-left text-lg-left">
-                                                            <i class="fas fa-file-alt"></i>
-                                                            Deskripsi:
-                                                        </div>
-                                                        <?=$data->note?>
-                                                        <div class="space-6"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <?php endforeach?>
-
-                                    </div><!-- /.timeline-items -->
-                                </div>
-                            <?php endforeach?>
+                                <?=$data_permohonan->catatan_pemohon?>
 
                             </div>
                         </div>
                     </div>
+                    <?php endif ?>
+                    
                 </div><!-- /.col -->
             </div>
 

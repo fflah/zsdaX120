@@ -48,12 +48,14 @@
                                 </div>
                             </div>
                         </div>
+
+                        <?php if($data_produk->hs_code): ?>
                         <div class="space-4"></div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> HS Code </label>
                             <div class="col-sm-9">
-                                <select value="<?=$data_produk->hs_code?>" required id="hs_code" name="hs_code" class="chosen-select form-control" style="width: 500px;" tabindex="-1" aria-hidden="true">
+                                <select value="<?=$data_produk->hs_code?>" id="hs_code" name="hs_code" class="chosen-select form-control" style="width: 500px;" tabindex="-1" aria-hidden="true">
                                     <option value="">&nbsp;</option>
                                     <option value="7308.90.99">7308.90.99</option>
                                     <option value="8481.10.19">8481.10.19</option>
@@ -1579,6 +1581,21 @@
                                 </select>
                             </div>
                         </div>
+                            
+                        <?php endif?>
+                        <?php if(!$data_produk->hs_code): ?>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Dokumen Surat Asosiasi </label>
+
+                                <div class="col-xs-12 col-sm-5">
+                                    <div class="clearfix">
+                                        <input type="file" name="dokumen_surat_asosiasi" id="dokumen_surat_asosiasi" class="form-control col-xs-12 col-sm-5">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif?>
                         <div class="space-4"></div>
 
                         <div class="form-group">
@@ -1610,7 +1627,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input value="<?=$data_produk->nilai_mesin?>" required type="text" name="nilai_mesin" id="nilai_mesin" class="form-control col-xs-12 col-sm-5">
+                                    <input value="<?=$data_produk->nilai_mesin?>" required type="number" name="nilai_mesin" id="nilai_mesin" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -1621,7 +1638,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input value="<?=$data_produk->umur_teknis_mesin?>" required type="text" name="umur_teknis_mesin" id="umur_teknis_mesin" class="form-control col-xs-12 col-sm-5">
+                                    <input value="<?=$data_produk->umur_teknis_mesin?>" required type="number" name="umur_teknis_mesin" id="umur_teknis_mesin" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -1643,7 +1660,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input value="<?=$data_produk->jumlah_mesin?>" required type="text" name="jumlah_mesin" id="jumlah_mesin" class="form-control col-xs-12 col-sm-5">
+                                    <input value="<?=$data_produk->jumlah_mesin?>" required type="number" name="jumlah_mesin" id="jumlah_mesin" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2544,7 +2561,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input value="<?=$data_produk->jumlah_produk?>" required type="text" name="jumlah_produk" id="jumlah_produk" class="form-control col-xs-12 col-sm-5">
+                                    <input value="<?=$data_produk->jumlah_produk?>" required type="number" name="jumlah_produk" id="jumlah_produk" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2554,7 +2571,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input value="<?=$data_produk->nilai_mesin?>" required type="text" name="nilai_produk" id="nilai_produk" class="form-control col-xs-12 col-sm-5">
+                                    <input value="<?=$data_produk->nilai_mesin?>" required type="number" name="nilai_produk" id="nilai_produk" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
@@ -2564,7 +2581,7 @@
 
                             <div class="col-xs-12 col-sm-5">
                                 <div class="clearfix">
-                                    <input value="<?=$data_produk->penyerapan_tenaga_kerja?>" required type="text" name="penyerapan_tenaga_kerja" id="penyerapan_tenaga_kerja" class="form-control col-xs-12 col-sm-5">
+                                    <input value="<?=$data_produk->penyerapan_tenaga_kerja?>" required type="number" name="penyerapan_tenaga_kerja" id="penyerapan_tenaga_kerja" class="form-control col-xs-12 col-sm-5">
                                 </div>
                             </div>
                         </div>
